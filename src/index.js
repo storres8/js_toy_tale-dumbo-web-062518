@@ -60,6 +60,17 @@ function updateLikes(id, likeValue){
 .then(res => res.json())
 }
 
+function deleteToy(id){
+  // console.log(id)
+  fetch(`http://localhost:3000/toys/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(res => res.json());
+}
+
 
 function allToys(toysArray){
   const collection = document.getElementById('toy-collection')
@@ -82,16 +93,21 @@ function allToys(toysArray){
       likes.innerText = `${toy.likes} Likes!`
       // console.log(toy.likes)
     })
-    card.append(name, img, likes, bttn)
+    const deleteBtn = document.createElement('button')
+    deleteBtn.id = 'delete-toy'
+    deleteBtn.innerText = "Delete Toy :("
+    deleteBtn.confirm
+    deleteBtn.addEventListener('click', () =>{
+      deleteToy(toy.id)
+      card.innerText = 'OOPS! Nothing exists!'
+    })
+
+    card.append(name, img, likes, bttn, deleteBtn)
     collection.append(card)
 
 
   })
 }
-
-
-
-
 
 
 })
